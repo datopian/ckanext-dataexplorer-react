@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block page %}
+  {{ h.dump_json(datapackage)}}
+   <div class="data-explorer" id="data-explorer-f3535c85-b804-4df6-b18c-73ec206edc59" 
+   data-datapackage="{{  h.dump_json({ "widgets": widgets, "datapackage": datapackage })  }}"> </div>
+  {% resource 'dataexplorer/main' %}
+{% endblock %}
+
+{% block styles %}{% endblock %}
+{% block custom_styles %}{% endblock %}
