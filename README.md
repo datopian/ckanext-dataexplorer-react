@@ -1,32 +1,3 @@
-.. You should enable this project on travis-ci.org and coveralls.io to make
-   these badges work. The necessary Travis and Coverage config files have been
-   generated for you.
-
-.. image:: https://travis-ci.org//ckanext-dataexplorer-react.svg?branch=master
-    :target: https://travis-ci.org//ckanext-dataexplorer-react
-
-.. image:: https://coveralls.io/repos//ckanext-dataexplorer-react/badge.svg
-  :target: https://coveralls.io/r//ckanext-dataexplorer-react
-
-.. image:: https://pypip.in/download/ckanext-dataexplorer-react/badge.svg
-    :target: https://pypi.python.org/pypi//ckanext-dataexplorer-react/
-    :alt: Downloads
-
-.. image:: https://pypip.in/version/ckanext-dataexplorer-react/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataexplorer-react/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/py_versions/ckanext-dataexplorer-react/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataexplorer-react/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/ckanext-dataexplorer-react/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataexplorer-react/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/ckanext-dataexplorer-react/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataexplorer-react/
-    :alt: License
 
 =============
 ckanext-dataexplorer-react
@@ -63,24 +34,16 @@ To install ckanext-dataexplorer-react:
 
      pip install ckanext-dataexplorer-react
 
-3. Add ``dataexplorer-react`` to the ``ckan.plugins`` setting in your CKAN
+3. Add ``dataexplorer-view`` to the ``ckan.plugins`` setting in your CKAN
    config file (by default the config file is located at
    ``/etc/ckan/default/production.ini``).
+
 
 4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
 
      sudo service apache2 reload
 
 
----------------
-Config Settings
----------------
-
-Document any optional config settings here. For example::
-
-    # The minimum number of hours to wait before re-checking a resource
-    # (optional, default: 24).
-    ckanext.dataexplorer-react.some_setting = some_default_value
 
 
 ------------------------
