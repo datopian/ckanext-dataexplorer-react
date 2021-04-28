@@ -1,7 +1,7 @@
 
 
 ### ckanext-dataexplorer-react
-
+A CKAN extension which provides to create different visualization eg. table, chart and map. 
 
 
 ### Installation
