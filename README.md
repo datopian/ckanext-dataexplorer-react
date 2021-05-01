@@ -1,11 +1,14 @@
+[![CKAN](https://img.shields.io/badge/ckan-2.8.7-orange.svg?style=flat-square)](https://github.com/ckan/ckan)
 
+A Data Explorer app for CKAN built in React:
 
-### ckanext-dataexplorer-react
-A CKAN extension which provides to create different visualization eg. table, chart and map. 
+* Preview data from DataStore in a table
+* Filter data using SQL-like query builder which calls `datastore_search_sql` API
+* Build charts and maps similar to classic Data Explorer
 
+The React repository is here - https://github.com/datopian/data-explorer
 
 ### Installation
-
 
 To install ckanext-dataexplorer-react:
 
@@ -16,13 +19,13 @@ To install ckanext-dataexplorer-react:
 2. Install the ckanext-dataexplorer-react Python package into your virtual environment::
    `pip install -e git+https://github.com/datopian/ckanext-dataexplorer-react.git#egg=ckanext-dataexplorer-react`
 
-3. Add ``dataexplorer-view`` to the ``ckan.plugins`` setting in your CKAN
+3. Add ``dataexplorer_view`` to the ``ckan.plugins`` setting in your CKAN
    config file (by default the config file is located at
    ``/etc/ckan/default/production.ini``)
-    * Also, you can add `dataexplorer-view`for multiview visualization table, chart and map. 
-    * Add `dataexplorer-table-view` for table view. 
-    * Add `dataexplorer-chart-view` for table view. 
-    * Add `dataexplorer-map-view` for table view. 
+    * `dataexplorer_view`for multiview visualization table, chart and map.
+    * Add `dataexplorer_table_view` for table view.
+    * Add `dataexplorer_chart_view` for table view.
+    * Add `dataexplorer_map_view` for table view.
 
 4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
 

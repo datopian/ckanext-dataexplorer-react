@@ -79,20 +79,20 @@ def datastore_fields_to_schema(resource):
 
 
 def get_widget(view_id,  view_type):
-  widgets = []
-  ordering = dict((k, v) for v, k in enumerate(
-      ['table', 'simple', 'tabularmap']))
+    widgets = []
+    ordering = dict((k, v) for v, k in enumerate(
+        ['table', 'simple', 'tabularmap']))
 
-  view_type = sorted(view_type.items(), key=lambda (k, v): ordering[k])
-  for key, value in view_type:
-      widgets.append({
-          'name': value,
-          'active': True,
-          'datapackage': {
-              'views': [{'id': view_id, 'specType': key}]
-          }
-      })
-  return widgets
+    view_type = sorted(view_type.items(), key=lambda (k, v): ordering[k])
+    for key, value in view_type:
+        widgets.append({
+            'name': value,
+            'active': True,
+            'datapackage': {
+                'views': [{'id': view_id, 'specType': key}]
+            }
+        })
+    return widgets
 
 
 class DataExplorerViewBase(p.SingletonPlugin):
@@ -119,6 +119,7 @@ class DataExplorerViewBase(p.SingletonPlugin):
     def view_template(self, context, data_dict):
         return 'dataexplorer.html'
 
+
 class DataExplorerView(DataExplorerViewBase):
     '''
         This extension resources views using a v2 dataexplorer.
@@ -140,7 +141,8 @@ class DataExplorerView(DataExplorerViewBase):
             'tabularmap': 'Map'
         }
 
-        widgets = get_widget(data_dict['resource_view'].get('id', ''), view_type)
+        widgets = get_widget(
+            data_dict['resource_view'].get('id', ''), view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
         filters = data_dict['resource_view'].get('filters', {})
 
@@ -227,6 +229,7 @@ class DataExplorerTableView(DataExplorerViewBase):
         else:
             return False
 
+
 class DataExplorerChartView(DataExplorerViewBase):
     '''
     This extension provides chart views using a v2 dataexplorer.
@@ -248,7 +251,8 @@ class DataExplorerChartView(DataExplorerViewBase):
             'simple': 'Chart',
         }
 
-        widgets = get_widget(data_dict['resource_view'].get('id', ''),  view_type)
+        widgets = get_widget(
+            data_dict['resource_view'].get('id', ''),  view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
         filters = data_dict['resource_view'].get('filters', {})
 
@@ -279,6 +283,7 @@ class DataExplorerChartView(DataExplorerViewBase):
             return resource_format.lower() in ['csv', 'xls', 'xlsx', 'tsv']
         else:
             return False
+
 
 class DataExplorerMapView(DataExplorerViewBase):
     '''
@@ -301,7 +306,8 @@ class DataExplorerMapView(DataExplorerViewBase):
             'tabularmap': 'Map'
         }
 
-        widgets = get_widget(data_dict['resource_view'].get('id', ''),  view_type)
+        widgets = get_widget(
+            data_dict['resource_view'].get('id', ''),  view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
         filters = data_dict['resource_view'].get('filters', {})
 
@@ -332,4 +338,3 @@ class DataExplorerMapView(DataExplorerViewBase):
             return resource_format.lower() in ['csv', 'xls', 'xlsx', 'tsv']
         else:
             return False
-

@@ -80,12 +80,10 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points='''
         [ckan.plugins]
-        dataexplorer_multi_view=ckanext.dataexplorer_react.plugin:DataExplorerView
+        dataexplorer_view=ckanext.dataexplorer_react.plugin:DataExplorerView
         dataexplorer_table_view=ckanext.dataexplorer_react.plugin:DataExplorerTableView
         dataexplorer_chart_view=ckanext.dataexplorer_react.plugin:DataExplorerChartView
         dataexplorer_map_view=ckanext.dataexplorer_react.plugin:DataExplorerMapView
-
-
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
