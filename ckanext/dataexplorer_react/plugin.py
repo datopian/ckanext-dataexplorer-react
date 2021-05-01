@@ -139,15 +139,16 @@ class DataExplorerView(DataExplorerViewBase):
             'simple': 'Chart',
             'tabularmap': 'Map'
         }
-        log.warn(data_dict['resource_view'])
-        widgets = get_widget(data_dict['resource_view'].get('id', ''),  view_type)
+
+        widgets = get_widget(data_dict['resource_view'].get('id', ''), view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
+        filters = data_dict['resource_view'].get('filters', {})
 
         data_dict['resource'].update({
             'schema': {'fields': schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],  _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
@@ -171,6 +172,7 @@ class DataExplorerView(DataExplorerViewBase):
         else:
             return False
 
+
 class DataExplorerTableView(DataExplorerViewBase):
     '''
         This extension provides table views using a v2 dataexplorer.
@@ -179,12 +181,12 @@ class DataExplorerTableView(DataExplorerViewBase):
     def info(self):
         return {
             'name': 'dataexlorer_table',
-                'title': 'Table',
-                'filterable': False,
-                'icon': 'table',
-                'requires_datastore': False,
-                'default_title': p.toolkit._('Table'),
-                }
+            'title': 'Table',
+            'filterable': False,
+            'icon': 'table',
+            'requires_datastore': False,
+            'default_title': p.toolkit._('Table'),
+        }
 
     def setup_template_variables(self, context, data_dict):
 
@@ -192,14 +194,16 @@ class DataExplorerTableView(DataExplorerViewBase):
             'table': 'Table',
         }
 
-        widgets = get_widget(data_dict['resource_view'].get('id', ''),  view_type)
+        widgets = get_widget(
+            data_dict['resource_view'].get('id', ''),  view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
+        filters = data_dict['resource_view'].get('filters', {})
 
         data_dict['resource'].update({
             'schema': {'fields': schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],  _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
@@ -246,12 +250,13 @@ class DataExplorerChartView(DataExplorerViewBase):
 
         widgets = get_widget(data_dict['resource_view'].get('id', ''),  view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
+        filters = data_dict['resource_view'].get('filters', {})
 
         data_dict['resource'].update({
             'schema': {'fields': schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],  _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
@@ -298,12 +303,13 @@ class DataExplorerMapView(DataExplorerViewBase):
 
         widgets = get_widget(data_dict['resource_view'].get('id', ''),  view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
+        filters = data_dict['resource_view'].get('filters', {})
 
         data_dict['resource'].update({
             'schema': {'fields': schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],  _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
@@ -326,5 +332,4 @@ class DataExplorerMapView(DataExplorerViewBase):
             return resource_format.lower() in ['csv', 'xls', 'xlsx', 'tsv']
         else:
             return False
-
 
