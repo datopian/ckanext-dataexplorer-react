@@ -78,7 +78,7 @@ def datastore_fields_to_schema(resource):
     return ts_fields
 
 
-def get_widget(view_id,  view_type):
+def get_widget(view_id, view_type, spec={}):
     widgets = []
     ordering = dict((k, v) for v, k in enumerate(
         ['table', 'simple', 'tabularmap']))
@@ -89,10 +89,40 @@ def get_widget(view_id,  view_type):
             'name': value,
             'active': True,
             'datapackage': {
-                'views': [{'id': view_id, 'specType': key}]
+                'views': [{'id': view_id, 'specType': key, 'spec': spec}]
             }
         })
     return widgets
+
+
+def valid_fields_as_options(schema, valid_field_types):
+    '''
+    Return a list of all datastore schema fields  types for a given resource, as long as
+    the field type is in valid_field_types.
+
+    :param schema: schema dict
+    :type schema: dict
+    :param valid_field_types: field types to include in returned list
+    :type valid_field_types: list of strings
+    '''
+
+    return [{'value': f['name'], 'text': f['name']} for f in schema
+            if f['type'] in valid_field_types]
+
+
+def in_list(list_possible_values):
+    '''
+    Validator that checks that the input value is one of the given
+    possible values.
+
+    :param list_possible_values: function that returns list of possible values
+        for validated field
+    :type possible_values: function
+    '''
+    def validate(key, data, errors, context):
+        if not data[key] in list_possible_values():
+            raise Invalid('"{0}" is not a valid parameter'.format(data[key]))
+    return validate
 
 
 class DataExplorerViewBase(p.SingletonPlugin):
@@ -234,14 +264,34 @@ class DataExplorerChartView(DataExplorerViewBase):
     '''
     This extension provides chart views using a v2 dataexplorer.
     '''
+    chart_types = [{'value': 'bar', 'text': 'Bar'},
+                   {'value': 'line', 'text': 'Line'}]
+
+    datastore_schema = []
+    datastore_field_types = ['number', 'integer', 'datetime', 'date', 'time']
+
+    def list_chart_types(self):
+        return [t['value'] for t in self.chart_types]
+
+    def list_schema_fields(self):
+        return [t['name'] for t in self.datastore_schema]
 
     def info(self):
+        schema = {
+            'offset': [ignore_empty, natural_number_validator],
+            'limit': [ignore_empty, natural_number_validator],
+            'chart_type': [ignore_empty, in_list(self.list_chart_types)],
+            'group': [ignore_empty, in_list(self.list_schema_fields)],
+            'chart_series': [ignore_empty]
+        }
+
         return {
             'name': 'dataexlorer_chart',
             'title': 'Chart',
-            'filterable': False,
+            'filterable': True,
             'icon': 'bar-chart-o',
-            'requires_datastore': False,
+            'requires_datastore': True,
+            'schema': schema,
             'default_title': p.toolkit._('Chart'),
         }
 
@@ -251,25 +301,46 @@ class DataExplorerChartView(DataExplorerViewBase):
             'simple': 'Chart',
         }
 
+        spec = {}
+        chart_type = data_dict['resource_view'].get('chart_type', False)
+        group = data_dict['resource_view'].get('group', False)
+        chart_series = data_dict['resource_view'].get('chart_series', False)
+        if chart_type:
+            spec.update({'type': chart_type})
+        if group:
+            spec.update({'group': group})
+        if chart_series:
+            spec.update({'series': chart_series if isinstance(
+                chart_series, list) else [chart_series]})
+
         widgets = get_widget(
-            data_dict['resource_view'].get('id', ''),  view_type)
-        schema = datastore_fields_to_schema(data_dict['resource'])
+            data_dict['resource_view'].get('id', ''), view_type, spec)
+
         filters = data_dict['resource_view'].get('filters', {})
+        limit = data_dict['resource_view'].get('limit', 100)
+        offset = data_dict['resource_view'].get('offset', 0)
+
+        self.datastore_schema = datastore_fields_to_schema(
+            data_dict['resource'])
 
         data_dict['resource'].update({
-            'schema': {'fields': schema},
+            'schema': {'fields': self.datastore_schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],
+                           filters=json.dumps(filters), limit=limit, offset=offset, _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
+        chart_series = valid_fields_as_options(
+            self.datastore_schema, self.datastore_field_types)
 
-        # TODO: Add view filter
         return {
             'resource': data_dict['resource'],
             'widgets': widgets,
-            'datapackage':  datapackage
+            'datapackage':  datapackage,
+            'chart_types':  self.chart_types,
+            'chart_series': chart_series,
         }
 
     def can_view(self, data_dict):
@@ -283,6 +354,9 @@ class DataExplorerChartView(DataExplorerViewBase):
             return resource_format.lower() in ['csv', 'xls', 'xlsx', 'tsv']
         else:
             return False
+
+    def form_template(self, context, data_dict):
+        return 'chart_form.html'
 
 
 class DataExplorerMapView(DataExplorerViewBase):
