@@ -24,8 +24,9 @@ To install ckanext-dataexplorer-react:
    ``/etc/ckan/default/production.ini``)
     * `dataexplorer_view`for multiview visualization table, chart and map.
     * Add `dataexplorer_table_view` for table view.
-    * Add `dataexplorer_chart_view` for table view.
-    * Add `dataexplorer_map_view` for table view.
+    * Add `dataexplorer_chart_view` for chart view.
+    * Add `dataexplorer_map_view` for map view.
+    * Add `dataexplorer_web_view` for external web view.
 
 4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
 
@@ -38,7 +39,7 @@ To install ckanext-dataexplorer-react:
 To install ckanext-dataexplorer-react for development, activate your CKAN virtualenv and
 do::
 
-    git clone https://github.com//ckanext-dataexplorer-react.git
+    git clone https://github.com/datopian/ckanext-dataexplorer-react.git
     cd ckanext-dataexplorer-react
     python setup.py develop
     pip install -r dev-requirements.txt

@@ -84,6 +84,7 @@ setup(
         dataexplorer_table_view=ckanext.dataexplorer_react.plugin:DataExplorerTableView
         dataexplorer_chart_view=ckanext.dataexplorer_react.plugin:DataExplorerChartView
         dataexplorer_map_view=ckanext.dataexplorer_react.plugin:DataExplorerMapView
+        dataexplorer_web_view=ckanext.dataexplorer_react.plugin:DataExplorerWebView
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan

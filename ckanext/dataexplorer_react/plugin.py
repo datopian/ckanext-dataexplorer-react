@@ -1,4 +1,5 @@
 
+from six import text_type
 from logging import getLogger
 
 from ckan.common import json, config
@@ -90,7 +91,7 @@ def get_widget(view_id, view_type, spec={}):
     '''
     widgets = []
     ordering = dict((k, v) for v, k in enumerate(
-        ['table', 'simple', 'tabularmap']))
+        ['table', 'simple', 'tabularmap', 'web']))
 
     view_type = sorted(view_type.items(), key=lambda (k, v): ordering[k])
     for key, value in view_type:
@@ -479,3 +480,50 @@ class DataExplorerMapView(DataExplorerViewBase):
 
     def form_template(self, context, data_dict):
         return 'map_form.html'
+
+
+class DataExplorerWebView(DataExplorerViewBase):
+    '''
+        This extension provides external web views using a v2 dataexplorer.
+    '''
+
+    def info(self):
+        return {
+            'name': 'dataexlorer_web',
+            'title': 'Web View',
+            'icon': 'link',
+            'schema': {'page_url': [ignore_empty, text_type]},
+            'always_available': True,
+            'default_title': p.toolkit._('Web'),
+        }
+
+    def setup_template_variables(self, context, data_dict):
+
+        view_type = {
+            'web': 'Web'
+        }
+
+        page_url = data_dict['resource_view'].get('page_url', False)
+
+        widgets = get_widget(
+            data_dict['resource_view'].get('id', ''), view_type)
+
+        if page_url:
+            widgets[0]['datapackage']['views'][0].update(
+                {'page_url': page_url})
+
+        data_dict['resource'].update({
+            'title': data_dict['resource']['name'],
+            'path': data_dict['resource']['url'],
+        })
+
+        datapackage = {'resources': [data_dict['resource']]}
+
+        return {
+            'resource': data_dict['resource'],
+            'widgets': widgets,
+            'datapackage':  datapackage
+        }
+
+    def form_template(self, context, data_dict):
+        return 'webpage_form.html'
