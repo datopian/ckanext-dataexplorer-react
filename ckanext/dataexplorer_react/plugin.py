@@ -363,15 +363,44 @@ class DataExplorerMapView(DataExplorerViewBase):
     '''
         This extension provides Map views using a v2 dataexplorer.
     '''
+    map_field_types = [{'value': 'lat_long',
+                        'text': 'Latitude / Longitude fields'},
+                       {'value': 'geometry', 'text': 'Geometry'}]
+
+    datastore_schema = []
+    datastore_field_latlon_types = ['number']
+
+    datastore_field_geojson_types = ['string']
+
+    def list_map_field_types(self):
+        return [t['value'] for t in self.map_field_types]
+
+    def list_schema_fields(self):
+        return [t['name'] for t in self.datastore_schema]
 
     def info(self):
+        schema = {
+            'offset': [ignore_empty, natural_number_validator],
+            'limit': [ignore_empty, natural_number_validator],
+            'map_field_type': [ignore_empty,
+                               in_list(self.list_map_field_types)],
+            'latitude_field': [ignore_empty,
+                               in_list(self.list_schema_fields)],
+            'longitude_field': [ignore_empty,
+                                in_list(self.list_schema_fields)],
+            'geometry_field': [ignore_empty,
+                               in_list(self.list_schema_fields)],
+            'info_box': [ignore_empty]
+        }
+
         return {
             'name': 'dataexlorer_map',
             'title': 'Map',
-            'filterable': False,
+            'filterable': True,
             'icon': 'map-marker',
-            'requires_datastore': False,
+            'requires_datastore': True,
             'default_title': p.toolkit._('Map'),
+            'schema': schema
         }
 
     def setup_template_variables(self, context, data_dict):
@@ -379,26 +408,52 @@ class DataExplorerMapView(DataExplorerViewBase):
         view_type = {
             'tabularmap': 'Map'
         }
+        spec = {}
+
+        limit = data_dict['resource_view'].get('limit', 100)
+        offset = data_dict['resource_view'].get('offset', 0)
+        filters = data_dict['resource_view'].get('filters', {})
+        map_type = data_dict['resource_view'].get('map_field_type', False)
+        lon_field = data_dict['resource_view'].get('longitude_field', False)
+        lat_field = data_dict['resource_view'].get('latitude_field', False)
+        geom_field = data_dict['resource_view'].get('geojson_field', False)
+        infobox = data_dict['resource_view'].get('info_box', False)
+
+        if map_type == 'lat_long':
+            spec.update({'lonField': lon_field, 'latField': lat_field})
+
+        if map_type == 'geojson':
+            spec.update({'geomField': geom_field})
+
+        if infobox:
+            spec.update({'infobox': infobox})
 
         widgets = get_widget(
-            data_dict['resource_view'].get('id', ''),  view_type)
-        schema = datastore_fields_to_schema(data_dict['resource'])
-        filters = data_dict['resource_view'].get('filters', {})
+            data_dict['resource_view'].get('id', ''), view_type, spec)
+
+        self.datastore_schema = datastore_fields_to_schema(
+            data_dict['resource'])
 
         data_dict['resource'].update({
-            'schema': {'fields': schema},
+            'schema': {'fields': self.datastore_schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), limit=limit, offset=offset, _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
+        map_latlon_fields = valid_fields_as_options(
+            self.datastore_schema, self.datastore_field_latlon_types)
+        map_geojson_fields = valid_fields_as_options(
+            self.datastore_schema, self.datastore_field_geojson_types)
 
-        # TODO: Add view filter
         return {
             'resource': data_dict['resource'],
             'widgets': widgets,
-            'datapackage':  datapackage
+            'datapackage':  datapackage,
+            'map_field_types': self.map_field_types,
+            'map_latlon_fields': map_latlon_fields,
+            'map_geometry_fields': map_geojson_fields
         }
 
     def can_view(self, data_dict):
@@ -412,3 +467,6 @@ class DataExplorerMapView(DataExplorerViewBase):
             return resource_format.lower() in ['csv', 'xls', 'xlsx', 'tsv']
         else:
             return False
+
+    def form_template(self, context, data_dict):
+        return 'map_form.html'
