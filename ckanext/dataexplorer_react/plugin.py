@@ -79,6 +79,15 @@ def datastore_fields_to_schema(resource):
 
 
 def get_widget(view_id, view_type, spec={}):
+    '''
+    Return a widges dict for a given view types.
+    :param view_id: view id
+    :type view_id: string
+    :param view_type: datapackage view type.
+    :type view_type: dict
+    :param spec: datapackage view specs.
+    :type spec: dict
+    '''
     widgets = []
     ordering = dict((k, v) for v, k in enumerate(
         ['table', 'simple', 'tabularmap']))
@@ -97,7 +106,7 @@ def get_widget(view_id, view_type, spec={}):
 
 def valid_fields_as_options(schema, valid_field_types):
     '''
-    Return a list of all datastore schema fields  types for a given resource, as long as
+    Return a list of all datastore schema fields types for a given resource, as long as
     the field type is in valid_field_types.
 
     :param schema: schema dict
