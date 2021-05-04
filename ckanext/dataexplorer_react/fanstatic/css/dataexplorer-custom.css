@@ -1,0 +1,221 @@
+
+.data-explorer .datastore-query-builder .App {
+    text-align: left;
+    margin: 10px 0;
+}
+.data-explorer .total-rows {
+    background: #f7f7f7;
+    width: 200px;
+    border-left: 4px #206b82 solid;
+    padding: 4px 8px;
+    margin-bottom: 20px;
+}
+
+.dq-rule-submit .btn {
+	background-color: #206b82;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+  padding: 6px 12px;
+	margin: 0 5px 0 0
+}
+
+.dq-rule-add {
+	background-color: #206b82;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	font-size: 1.5rem;
+	margin: 0 5px 0 0;
+  color: transparent !important;
+  content: "" !important;
+  font-size: 0;
+  padding: 6px 12px;
+
+}
+.dq-body{
+    display: inline-block;
+}
+.dq-rule-add:before {
+	color: #fff !important;
+	content: "Add a filter" !important;
+	width: 10000em;
+  font-size: 16px;
+}
+
+.dq-rule-submit {
+  display: inline-block;
+}
+
+
+.datastore-query-builder .dq-body .dq-rule-item .dq-btn-add {
+    background-color: #50a645 !important;
+    color: #fff !important;
+    font-size: 20px;
+    border-color: #3f8037 !important;
+    padding: 1px 12px !important;
+    border-radius: 3px;
+}
+
+ /* filter rule */
+.datastore-query-builder .dq-body .dq-rule-item {
+	margin-bottom: 10px !important
+}
+
+.datastore-query-builder .dq-body .dq-rule-item select,
+.datastore-query-builder .dq-body .dq-rule-item input {
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+	padding: 5px 10px
+}
+
+.datastore-query-builder .dq-body .dq-rule-item .form-control,
+.datastore-query-builder .dq-body .dq-rule-item .btn {
+	margin-right: 10px
+}
+
+.datastore-query-builder .dq-body .dq-rule-item .dq-btn-remove {
+	background-color: #e9ecef !important;
+	color: #282828 !important;
+	font-size: 20px;
+	border-color: #bbbbbb !important;
+	padding: 1px 12px !important;
+	border-radius: 3px
+}
+
+.datastore-query-builder .dq-body .dq-rule-item .dq-btn-add {
+  background-color: #5cb85c !important;
+  border-color: #4cae4c !important;
+	color: #fff !important;
+	font-size: 20px;
+	padding: 1px 12px !important;
+	border-radius: 3px
+}
+
+  /* view tab panel  */
+ .data-explorer-content{
+  margin-top: 30px;
+}
+
+.data-explorer-content [id^="tab-"][aria-selected="true"] {
+	border-top: 0px solid #206b82;
+	background: #206b82;
+	color: #fff
+}
+
+.data-explorer-content [id^="tab-"] {
+    font-size: 16px;
+    outline: none;
+    padding: 8px 15px;
+}
+.data-explorer-content [id^="tabpanel-"] {
+    margin-top: -2px;
+    border-top: 1px solid #e3e3e3;
+    padding-top: 30px;
+    margin-right: 0px;
+}
+
+@media (min-width: 1024px) {
+  .data-explorer-content [id^="tabpanel-"] .container {
+    max-width: 100%;
+    padding: 0 ;
+  }
+}
+
+
+/* table pagination */
+.data-explorer .pagination {
+	display: flex;
+	justify-content: center;
+	padding-top: 1.5rem
+}
+
+.data-explorer .pagination li  {
+	border: none;
+	color: #005d7a !important;
+  padding: 6px 12px;
+}
+
+.data-explorer .pagination .active {
+	background-color: #005d7a;
+	color: white !important
+}
+
+.data-explorer .pagination .active a:hover {
+	background-color: #005d7a;
+	cursor: pointer
+}
+
+.data-explorer .pagination li {
+	border: 1px solid #005d7a;
+  padding: 6px 12px;
+}
+
+
+
+ /* char/map builder  */
+form.map-builder, form.chart-builder {
+  background-color: #005d7a;
+}
+
+[id^="tabpanel"] .container .w-1\/4 .text-xs {
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 12px;
+}
+
+ /* share/embed/copy */
+.dx-share-container {
+  display:  none;
+}
+
+/* table styling */
+.ReactTable .rt-thead.-header {
+	box-shadow: none !important;
+	border-bottom: 1px solid #f2f2f2;
+	background-color: #e9ecef !important
+}
+
+.ReactTable .rt-tbody .rt-td:last-child {
+	padding-right: 30px !important
+}
+
+.ReactTable .rt-tbody .rt-td {
+	color: #5a5a5a;
+	word-wrap: break-word;
+	white-space: initial
+}
+
+.ReactTable .rt-tbody .rt-td .any,
+.ReactTable .rt-tbody .rt-td .string,
+.ReactTable .rt-tbody .rt-td .date,
+.ReactTable .rt-tbody .rt-td .datetime {
+	text-align: left
+}
+
+.ReactTable .rt-tbody .rt-td .number,
+.ReactTable .rt-tbody .rt-td .integer {
+	text-align: right
+}
+
+.ReactTable .rt-th {
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
+
+.ReactTable .rt-tr.-odd {
+	background-color: #f8f9fa !important
+}
+
+.ReactTable .rt-tr.-even {
+	background-color: #fff !important
+}
+
+.ReactTable .rt-thead .rt-th.-sort-asc {
+    box-shadow: inset 0 3px 0 0 rgb(34 107 130);
+}
+
+.ReactTable .rt-thead .rt-th.-sort-desc {
+    box-shadow: inset 0 -3px 0 0 rgb(34 107 130)
+}
