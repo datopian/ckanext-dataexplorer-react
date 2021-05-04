@@ -6,13 +6,13 @@
 .data-explorer .total-rows {
     background: #f7f7f7;
     width: 200px;
-    border-left: 4px #206b82 solid;
+    border-left: 4px #4a90e2 solid;
     padding: 4px 8px;
     margin-bottom: 20px;
 }
 
 .dq-rule-submit .btn {
-	background-color: #206b82;
+	background-color: #4a90e2;
 	border-radius: 4px;
 	color: #fff;
 	display: inline-block;
@@ -21,7 +21,7 @@
 }
 
 .dq-rule-add {
-	background-color: #206b82;
+	background-color: #4a90e2;
 	border-radius: 4px;
 	color: #fff;
 	display: inline-block;
@@ -98,8 +98,8 @@
 }
 
 .data-explorer-content [id^="tab-"][aria-selected="true"] {
-	border-top: 0px solid #206b82;
-	background: #206b82;
+	border-top: 0px solid #4a90e2;
+	background: #4a90e2;
 	color: #fff
 }
 
@@ -132,22 +132,22 @@
 
 .data-explorer .pagination li  {
 	border: none;
-	color: #005d7a !important;
+	color: #4a90e2 !important;
   padding: 6px 12px;
 }
 
 .data-explorer .pagination .active {
-	background-color: #005d7a;
+	background-color: #4a90e2;
 	color: white !important
 }
 
 .data-explorer .pagination .active a:hover {
-	background-color: #005d7a;
+	background-color: #4a90e2;
 	cursor: pointer
 }
 
 .data-explorer .pagination li {
-	border: 1px solid #005d7a;
+	border: 1px solid #4a90e2;
   padding: 6px 12px;
 }
 
@@ -155,7 +155,7 @@
 
  /* char/map builder  */
 form.map-builder, form.chart-builder {
-  background-color: #005d7a;
+  background-color: #4a90e2;
 }
 
 [id^="tabpanel"] .container .w-1\/4 .text-xs {
