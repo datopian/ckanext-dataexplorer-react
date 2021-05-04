@@ -2,7 +2,7 @@
 {{ form.input('offset', id='field-offset', label=_('Row offset'), placeholder=_('eg: 0'), value=data.offset, error=errors.offset, classes=['control-medium']) }}
 {{ form.input('limit', id='field-limit', label=_('Number of rows'), placeholder=_('eg: 100'), value=data.limit, error=errors.limit, classes=['control-medium']) }}
 {{ form.select('chart_type', label=_('Chart type'), options=chart_types, selected=data.chart_type, error=errors.chart_type) }}
-{{ form.select('group', label=_('Group (Axis 1)'), options=chart_series, selected=data.group, error=errors.group) }}
+{{ form.select('group', label=_('Group (Axis 1)'), options=groups, selected=data.group, error=errors.group) }}
 
 <div class="form-group control-select">
   <label class="control-label" for="group">Series (Axis 2)</label>

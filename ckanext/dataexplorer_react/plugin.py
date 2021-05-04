@@ -105,7 +105,7 @@ def get_widget(view_id, view_type, spec={}):
     return widgets
 
 
-def valid_fields_as_options(schema, valid_field_types):
+def valid_fields_as_options(schema, valid_field_types = [] ):
     '''
     Return a list of all datastore schema fields types for a given resource, as long as
     the field type is in valid_field_types.
@@ -117,7 +117,7 @@ def valid_fields_as_options(schema, valid_field_types):
     '''
 
     return [{'value': f['name'], 'text': f['name']} for f in schema
-            if f['type'] in valid_field_types]
+            if f['type'] in valid_field_types or valid_field_types == [] ] 
 
 
 def in_list(list_possible_values):
@@ -342,6 +342,8 @@ class DataExplorerChartView(DataExplorerViewBase):
         })
 
         datapackage = {'resources': [data_dict['resource']]}
+        groups = valid_fields_as_options(
+            self.datastore_schema)
         chart_series = valid_fields_as_options(
             self.datastore_schema, self.datastore_field_types)
 
@@ -351,6 +353,7 @@ class DataExplorerChartView(DataExplorerViewBase):
             'datapackage':  datapackage,
             'chart_types':  self.chart_types,
             'chart_series': chart_series,
+            'groups': groups,
         }
 
     def can_view(self, data_dict):
