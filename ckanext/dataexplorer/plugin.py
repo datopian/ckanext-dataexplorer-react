@@ -10,7 +10,7 @@ log = getLogger(__name__)
 ignore_empty = p.toolkit.get_validator('ignore_empty')
 natural_number_validator = p.toolkit.get_validator('natural_number_validator')
 Invalid = p.toolkit.Invalid
-
+ckan_29_or_higher = p.toolkit.check_ckan_version(min_version='2.9.0')
 
 def each_datastore_field_to_schema_type(dstore_type):
     # Adopted from https://github.com/frictionlessdata/datapackage-pipelines-ckan-driver/blob/master/tableschema_ckan_datastore/mapper.py
@@ -90,11 +90,8 @@ def get_widget(view_id, view_type, spec={}):
     :type spec: dict
     '''
     widgets = []
-    ordering = dict((k, v) for v, k in enumerate(
-        ['table', 'simple', 'tabularmap', 'web']))
 
-    view_type = sorted(view_type.items(), key=lambda (k, v): ordering[k])
-    for key, value in view_type:
+    for key, value in view_type.items():
         widgets.append({
             'name': value,
             'active': True,
@@ -153,7 +150,7 @@ class DataExplorerViewBase(p.SingletonPlugin):
 
     def get_helpers(self):
         return {
-
+            'ckan_29_or_higher' : ckan_29_or_higher
         }
 
     def view_template(self, context, data_dict):
