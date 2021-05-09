@@ -2,12 +2,12 @@
 
 {% block page %}
    <div class="data-explorer" id="data-explorer-f3535c85-b804-4df6-b18c-73ec206edc59" 
-   data-datapackage="{{  h.dump_json({ "widgets": widgets, "datapackage": datapackage })  }}"> </div>
-    {% if  h.ckan_29_or_higher %}
-      {% asset 'dataexplorer/main' %}
+   data-datapackage="{{ h.dump_json({ "widgets": widgets, "datapackage": datapackage }) }}"> </div>
+    {% if h.ckan_29_or_higher %}
+      {% include 'snippets/assets_2.9.html' %}
     {% else %}
-      {% resource 'dataexplorer/main' %}
-    {%endif%}
+      {% include 'snippets/resource_2.8.html' %}
+    {% endif %}
     
 {% endblock %}
 
