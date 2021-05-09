@@ -3,7 +3,12 @@
 {% block page %}
    <div class="data-explorer" id="data-explorer-f3535c85-b804-4df6-b18c-73ec206edc59" 
    data-datapackage="{{  h.dump_json({ "widgets": widgets, "datapackage": datapackage })  }}"> </div>
-  {% resource 'dataexplorer/main' %}
+    {% if  h.ckan_29_or_higher %}
+      {% asset 'dataexplorer/main' %}
+    {% else %}
+      {% resource 'dataexplorer/main' %}
+    {%endif%}
+    
 {% endblock %}
 
 {% block styles %}{% endblock %}
