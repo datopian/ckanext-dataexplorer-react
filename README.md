@@ -1,4 +1,5 @@
-[![CKAN](https://img.shields.io/badge/ckan-2.8.7-orange.svg?style=flat-square)](https://github.com/ckan/ckan)
+[![CKAN](https://img.shields.io/badge/ckan-2.8.7-orange.svg?style=flat-square)](https://github.com/ckan/ckan) [![CKAN](https://img.shields.io/badge/ckan-2.9-orange.svg?style=flat-square)](https://github.com/ckan/ckan)
+
 
 A Data Explorer app for CKAN built in React:
 
@@ -43,16 +44,4 @@ do::
     cd ckanext-dataexplorer-react
     python setup.py develop
     pip install -r dev-requirements.txt
-
-
-### Running the Tests
-
-To run the tests, do::
-
-    nosetests --nologcapture --with-pylons=test.ini
-
-To run the tests and produce a coverage report, first make sure you have
-coverage installed in your virtualenv (``pip install coverage``) then run::
-
-    nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.dataexplorer-react --cover-inclusive --cover-erase --cover-tests
 
