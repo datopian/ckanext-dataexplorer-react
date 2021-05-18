@@ -163,11 +163,10 @@ class DataExplorerView(DataExplorerViewBase):
     '''
 
     def info(self):
-        return {'name': 'dataexlorer',
+        return {'name': 'dataexplorer_view',
                 'title': 'Data Explorer',
-                'filterable': False,
                 'icon': 'table',
-                'requires_datastore': False,
+                'requires_datastore': True,
                 'default_title': p.toolkit._('Data Explorer'),
                 }
 
@@ -179,16 +178,19 @@ class DataExplorerView(DataExplorerViewBase):
         }
 
         widgets = get_widget(
-            data_dict['resource_view'].get('id', ''), view_type)
-        schema = datastore_fields_to_schema(data_dict['resource'])
-        filters = data_dict['resource_view'].get('filters', {})
+        data_dict['resource_view'].get('id', ''), view_type)
 
         data_dict['resource'].update({
-            'schema': {'fields': schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
         })
+        
+        if data_dict['resource'].get('datastore_active'):
+            schema = datastore_fields_to_schema(data_dict['resource'])
+            data_dict['resource'].update({
+              'schema': {'fields': schema},
+              'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], _external=True),
+            })
 
         datapackage = {'resources': [data_dict['resource']]}
 
@@ -219,11 +221,11 @@ class DataExplorerTableView(DataExplorerViewBase):
 
     def info(self):
         return {
-            'name': 'dataexlorer_table',
+            'name': 'dataexplorer_table_view',
             'title': 'Table',
             'filterable': False,
             'icon': 'table',
-            'requires_datastore': False,
+            'requires_datastore': True,
             'default_title': p.toolkit._('Table'),
         }
 
@@ -293,7 +295,7 @@ class DataExplorerChartView(DataExplorerViewBase):
         }
 
         return {
-            'name': 'dataexlorer_chart',
+            'name': 'dataexplorer_chart_view',
             'title': 'Chart',
             'filterable': True,
             'icon': 'bar-chart-o',
@@ -404,7 +406,7 @@ class DataExplorerMapView(DataExplorerViewBase):
         }
 
         return {
-            'name': 'dataexlorer_map',
+            'name': 'dataexplorer_map_view',
             'title': 'Map',
             'filterable': True,
             'icon': 'map-marker',
@@ -489,7 +491,7 @@ class DataExplorerWebView(DataExplorerViewBase):
 
     def info(self):
         return {
-            'name': 'dataexlorer_web',
+            'name': 'dataexplorer_web_view',
             'title': 'Web View',
             'icon': 'link',
             'schema': {'page_url': [ignore_empty, text_type]},
