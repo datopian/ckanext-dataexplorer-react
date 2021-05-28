@@ -89,9 +89,10 @@ def get_widget(view_id, view_type, spec={}):
     :param spec: datapackage view specs.
     :type spec: dict
     '''
-    widgets = []
 
-    for key, value in view_type.items():
+    widgets = []
+    
+    for key, value in view_type:
         widgets.append({
             'name': value,
             'active': True,
@@ -171,11 +172,8 @@ class DataExplorerView(DataExplorerViewBase):
                 }
 
     def setup_template_variables(self, context, data_dict):
-        view_type = {
-            'table': 'Table',
-            'simple': 'Chart',
-            'tabularmap': 'Map'
-        }
+        view_type = [('table', 'Table'), ('simple', 'Chart'),
+                     ('tabularmap', 'Map')]
 
         widgets = get_widget(
         data_dict['resource_view'].get('id', ''), view_type)
@@ -231,9 +229,7 @@ class DataExplorerTableView(DataExplorerViewBase):
 
     def setup_template_variables(self, context, data_dict):
 
-        view_type = {
-            'table': 'Table',
-        }
+        view_type = view_type = [('table', 'Table')]
 
         widgets = get_widget(
             data_dict['resource_view'].get('id', ''),  view_type)
@@ -306,9 +302,7 @@ class DataExplorerChartView(DataExplorerViewBase):
 
     def setup_template_variables(self, context, data_dict):
 
-        view_type = {
-            'simple': 'Chart',
-        }
+        view_type = view_type = [('simple', 'Chart')]
 
         spec = {}
         chart_type = data_dict['resource_view'].get('chart_type', False)
@@ -417,9 +411,7 @@ class DataExplorerMapView(DataExplorerViewBase):
 
     def setup_template_variables(self, context, data_dict):
 
-        view_type = {
-            'tabularmap': 'Map'
-        }
+        view_type = [('tabularmap', 'Map')]
         spec = {}
 
         limit = data_dict['resource_view'].get('limit', 100)
@@ -500,10 +492,7 @@ class DataExplorerWebView(DataExplorerViewBase):
         }
 
     def setup_template_variables(self, context, data_dict):
-
-        view_type = {
-            'web': 'Web'
-        }
+        view_type = [('web', 'Web')]
 
         page_url = data_dict['resource_view'].get('page_url', False)
 
