@@ -183,7 +183,15 @@ form.map-builder, form.chart-builder {
 .ReactTable .rt-tbody .rt-td {
 	color: #5a5a5a;
 	word-wrap: break-word;
-	white-space: initial
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ReactTable .rt-tbody .rt-td div {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .ReactTable .rt-tbody .rt-td .any,
@@ -226,3 +234,18 @@ form.map-builder, form.chart-builder {
     padding: 0 4px;
     font-style: italic;
 }
+
+ .ReactTable .rt-table {
+	 overflow-x: scroll;
+	 overflow-y: scroll;
+}
+ .ReactTable .rt-table .rt-thead, .ReactTable .rt-table .rt-tbody {
+	 overflow: visible;
+}
+ .ReactTable .rt-table .rt-thead {
+	 top: 0;
+	 position: -webkit-sticky;
+	 position: sticky;
+	 background: white;
+}
+ 
