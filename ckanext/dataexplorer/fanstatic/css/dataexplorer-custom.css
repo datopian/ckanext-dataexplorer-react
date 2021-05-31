@@ -3,6 +3,7 @@
     text-align: left;
     margin: 10px 0;
 }
+
 .data-explorer .total-rows {
     background: #f7f7f7;
     width: 200px;
@@ -47,7 +48,6 @@
   display: inline-block;
 }
 
-
 .datastore-query-builder .dq-body .dq-rule-item .dq-btn-add {
     background-color: #50a645 !important;
     color: #fff !important;
@@ -61,6 +61,19 @@
 .datastore-query-builder .dq-body .dq-rule-item {
 	margin-bottom: 10px !important
 }
+.data-explorer .datastore-query-builder .dq-date-picker  {
+  padding-bottom: 10px;
+}
+
+.data-explorer .datastore-query-builder .dq-date-picker select {
+	border: 1px solid #b4b4b4;
+	border-radius: 3px;
+	padding: 5px 10px;
+  margin-right: 10px;
+}
+.data-explorer .datastore-query-builder .dq-date-picker .react-date-picker {
+    margin-right: 10px;
+}
 
 .datastore-query-builder .dq-body .dq-rule-item select,
 .datastore-query-builder .dq-body .dq-rule-item input {
@@ -68,6 +81,7 @@
 	border-radius: 3px;
 	padding: 5px 10px
 }
+
 
 .datastore-query-builder .dq-body .dq-rule-item .form-control,
 .datastore-query-builder .dq-body .dq-rule-item .btn {
