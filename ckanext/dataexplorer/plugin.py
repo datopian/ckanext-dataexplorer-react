@@ -293,7 +293,7 @@ class DataExplorerChartView(DataExplorerViewBase):
         return {
             'name': 'dataexplorer_chart_view',
             'title': 'Chart',
-            'filterable': True,
+            'filterable': False,
             'icon': 'bar-chart-o',
             'requires_datastore': True,
             'schema': schema,
@@ -402,7 +402,7 @@ class DataExplorerMapView(DataExplorerViewBase):
         return {
             'name': 'dataexplorer_map_view',
             'title': 'Map',
-            'filterable': True,
+            'filterable': False,
             'icon': 'map-marker',
             'requires_datastore': True,
             'default_title': p.toolkit._('Map'),
