@@ -79,7 +79,7 @@ def datastore_fields_to_schema(resource):
     return ts_fields
 
 
-def get_widget(view_id, view_type, spec={}):
+def get_widget(view_dict, view_type, spec={}):
     '''
     Return a widges dict for a given view types.
     :param view_id: view id
@@ -97,7 +97,12 @@ def get_widget(view_id, view_type, spec={}):
             'name': value,
             'active': True,
             'datapackage': {
-                'views': [{'id': view_id, 'specType': key, 'spec': spec}]
+                'views': [{
+                  'id': view_dict.get('id',''),
+                  'specType': key, 
+                  'spec': spec,
+                  'view_type': view_dict.get('view_type',''),
+                  }]
             }
         })
     return widgets
@@ -175,8 +180,7 @@ class DataExplorerView(DataExplorerViewBase):
         view_type = [('table', 'Table'), ('simple', 'Chart'),
                      ('tabularmap', 'Map')]
 
-        widgets = get_widget(
-        data_dict['resource_view'].get('id', ''), view_type)
+        widgets = get_widget(data_dict['resource_view'], view_type)
 
         data_dict['resource'].update({
             'title': data_dict['resource']['name'],
@@ -231,8 +235,7 @@ class DataExplorerTableView(DataExplorerViewBase):
 
         view_type = view_type = [('table', 'Table')]
 
-        widgets = get_widget(
-            data_dict['resource_view'].get('id', ''),  view_type)
+        widgets = get_widget(data_dict['resource_view'], view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
         filters = data_dict['resource_view'].get('filters', {})
 
@@ -245,7 +248,6 @@ class DataExplorerTableView(DataExplorerViewBase):
 
         datapackage = {'resources': [data_dict['resource']]}
 
-        # TODO: Add view filter
         return {
             'resource': data_dict['resource'],
             'widgets': widgets,
@@ -316,8 +318,7 @@ class DataExplorerChartView(DataExplorerViewBase):
             spec.update({'series': chart_series if isinstance(
                 chart_series, list) else [chart_series]})
 
-        widgets = get_widget(
-            data_dict['resource_view'].get('id', ''), view_type, spec)
+        widgets = get_widget(data_dict['resource_view'], view_type, spec)
 
         filters = data_dict['resource_view'].get('filters', {})
         limit = data_dict['resource_view'].get('limit', 100)
@@ -432,8 +433,7 @@ class DataExplorerMapView(DataExplorerViewBase):
         if infobox:
             spec.update({'infobox': infobox})
 
-        widgets = get_widget(
-            data_dict['resource_view'].get('id', ''), view_type, spec)
+        widgets = get_widget(data_dict['resource_view'], view_type, spec)
 
         self.datastore_schema = datastore_fields_to_schema(
             data_dict['resource'])
@@ -496,8 +496,7 @@ class DataExplorerWebView(DataExplorerViewBase):
 
         page_url = data_dict['resource_view'].get('page_url', False)
 
-        widgets = get_widget(
-            data_dict['resource_view'].get('id', ''), view_type)
+        widgets = get_widget(data_dict['resource_view'], view_type)
 
         if page_url:
             widgets[0]['datapackage']['views'][0].update(
