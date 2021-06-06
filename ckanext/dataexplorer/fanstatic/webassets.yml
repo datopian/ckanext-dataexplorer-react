@@ -1,0 +1,19 @@
+main-css:
+  output: dataexplorer/%(version)dataexplorer.css
+  filters: cssrewrite
+  contents:
+    - css/2.0f69c0e7.chunk.css
+    - css/main.0e85ebd4.chunk.css
+    - css/dataexplorer-custom.css
+
+
+main:
+  output: dataexplorer/%(version)dataexplorer.js
+  extra:
+    preload:
+      - dataexplorer/main-css
+  contents:
+    - js/2.4df3297d.chunk.js
+    - js/main.27231f47.chunk.js
+    - js/runtime~main.a8a9905a.js
+ 

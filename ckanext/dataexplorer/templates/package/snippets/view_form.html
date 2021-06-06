@@ -1,0 +1,7 @@
+{% ckan_extends %}
+
+{% block view_form_filters %}
+  {% if  h.resource_view_is_filterable(resource_view) %}
+   {% snippet 'package/snippets/view_form_filters.html', resource=resource, resource_view=resource_view %}
+  {% endif %}
+{% endblock %}

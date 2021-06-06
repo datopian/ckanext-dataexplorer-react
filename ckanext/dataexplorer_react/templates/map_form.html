@@ -1,8 +1,0 @@
-{{ form.input('offset', id='field-offset', label=_('Row offset'), placeholder=_('eg: 0'), value=data.offset, error=errors.offset, classes=['control-medium']) }}
-{{ form.input('limit', id='field-limit', label=_('Number of rows'), placeholder=_('eg: 100'), value=data.limit, error=errors.limit, classes=['control-medium']) }}
-
-{{ form.select('map_field_type', label=_('Field type'), options=map_field_types, selected=data.map_field_type, error=errors.map_field_type) }}
-{{ form.select('latitude_field', label=_('Latitude field'), options=map_latlon_fields, selected=data.latitude_field, error=errors.latitude_field) }}
-{{ form.select('longitude_field', label=_('Longitude field'), options=map_latlon_fields, selected=data.longitude_field, error=errors.longitude_field) }}
-{{ form.select('geometry_field', label=_('GeoJSON field'), options=map_geometry_fields, selected=data.geometry_field, error=errors.geometry_field) }} 
-{{ form.input('info_box', id='field-infobox', label=_('Info Box'), placeholder=_('${data.fieldname}'), value=data.info_box, error=errors.info_box, classes=['control-medium']) }}
