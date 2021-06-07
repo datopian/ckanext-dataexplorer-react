@@ -1,7 +1,16 @@
 {% ckan_extends %}
 
 {% block view_form_filters %}
-  {% if  h.resource_view_is_filterable(resource_view) %}
-   {% snippet 'package/snippets/view_form_filters.html', resource=resource, resource_view=resource_view %}
+ <div id="datapackage-filters"
+    filters='{{ h.dump_json({}) }}'
+    resource='{{ h.dump_json(datapackage['resources'][0]) }}'>
+  </div>
+
+  {{ form.input('filters', id='filters' ,label=_('Data filter'), value=data.filters, error=errors.filters, classes=['control-full', 'control-large'])  }} 
+
+   {% if  h.resource_view_is_filterable(resource_view) %}
+    {% snippet 'package/snippets/view_form_filters.html', resource=resource, resource_view=resource_view %}
   {% endif %}
+  {% resource 'dataexplorer/view_create' %}
+
 {% endblock %}

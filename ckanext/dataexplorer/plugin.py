@@ -6,8 +6,11 @@ from ckan.common import json, config
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 from ckan.lib.helpers import url_for
+import json
 log = getLogger(__name__)
 ignore_empty = p.toolkit.get_validator('ignore_empty')
+json_object = p.toolkit.get_validator('json_object')
+
 natural_number_validator = p.toolkit.get_validator('natural_number_validator')
 Invalid = p.toolkit.Invalid
 ckan_29_or_higher = p.toolkit.check_ckan_version(min_version='2.9.0')
@@ -138,6 +141,19 @@ def in_list(list_possible_values):
     return validate
 
 
+def json_parse():
+    '''
+    Validator that checks that the input value is one of the given
+    possible values.
+
+    :param list_possible_values: function that returns list of possible values
+        for validated field
+    :type possible_values: function
+    '''
+    def validate(key, data, errors, context):
+        return  {'4':3}
+    return validate
+
 class DataExplorerViewBase(p.SingletonPlugin):
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IResourceView, inherit=True)
@@ -224,6 +240,7 @@ class DataExplorerTableView(DataExplorerViewBase):
     def info(self):
         return {
             'name': 'dataexplorer_table_view',
+            'schema': {'filters': [ignore_empty, json_parse()]},
             'title': 'Table',
             'filterable': False,
             'icon': 'table',
@@ -286,6 +303,7 @@ class DataExplorerChartView(DataExplorerViewBase):
     def info(self):
         schema = {
             'offset': [ignore_empty, natural_number_validator],
+            'filters': [ignore_empty],
             'limit': [ignore_empty, natural_number_validator],
             'chart_type': [ignore_empty, in_list(self.list_chart_types)],
             'group': [ignore_empty, in_list(self.list_schema_fields)],
@@ -385,10 +403,14 @@ class DataExplorerMapView(DataExplorerViewBase):
     def list_schema_fields(self):
         return [t['name'] for t in self.datastore_schema]
 
+    def parser(self):
+
+        pass
     def info(self):
         schema = {
             'offset': [ignore_empty, natural_number_validator],
             'limit': [ignore_empty, natural_number_validator],
+            'filters': [ignore_empty, json_parse],
             'map_field_type': [ignore_empty,
                                in_list(self.list_map_field_types)],
             'latitude_field': [ignore_empty,
