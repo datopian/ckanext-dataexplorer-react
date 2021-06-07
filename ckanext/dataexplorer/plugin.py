@@ -198,7 +198,7 @@ class DataExplorerView(DataExplorerViewBase):
 
         # TODO: Add view filter
         return {
-            'resource': data_dict['resource'],
+            'resource_view': data_dict['resource_view'],
             'widgets': widgets,
             'datapackage':  datapackage
         }
@@ -249,7 +249,7 @@ class DataExplorerTableView(DataExplorerViewBase):
         datapackage = {'resources': [data_dict['resource']]}
 
         return {
-            'resource': data_dict['resource'],
+            'resource_view': data_dict['resource_view'],
             'widgets': widgets,
             'datapackage':  datapackage
         }
@@ -342,7 +342,7 @@ class DataExplorerChartView(DataExplorerViewBase):
             self.datastore_schema, self.datastore_field_types)
 
         return {
-            'resource': data_dict['resource'],
+            'resource_view': data_dict['resource_view'],
             'widgets': widgets,
             'datapackage':  datapackage,
             'chart_types':  self.chart_types,
@@ -452,7 +452,7 @@ class DataExplorerMapView(DataExplorerViewBase):
             self.datastore_schema, self.datastore_field_geojson_types)
 
         return {
-            'resource': data_dict['resource'],
+            'resource_view': data_dict['resource_view'],
             'widgets': widgets,
             'datapackage':  datapackage,
             'map_field_types': self.map_field_types,
