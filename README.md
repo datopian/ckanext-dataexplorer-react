@@ -1,15 +1,24 @@
-[![CKAN](https://img.shields.io/badge/ckan-2.8.7-orange.svg?style=flat-square)](https://github.com/ckan/ckan) [![CKAN](https://img.shields.io/badge/ckan-2.9-orange.svg?style=flat-square)](https://github.com/ckan/ckan)
+[![CKAN](https://img.shields.io/badge/ckan-2.8-orange.svg?style=flat-square)](https://github.com/ckan/ckan/tree/2.8) [![CKAN](https://img.shields.io/badge/ckan-2.9-orange.svg?style=flat-square)](https://github.com/ckan/ckan/tree/2.9)
 
+Note that it should work on earlier CKAN versions but it hasn't been tested.
+
+### Features
 
 A Data Explorer app for CKAN built in React:
 
-* Preview data from DataStore in a table
-* Filter data using SQL-like query builder which calls `datastore_search_sql` API
-* Build charts and maps similar to classic Data Explorer
+* Preview data from DataStore in a table.
+  * Set predefined filters.
+  * Set suggested filters.
+* Filter data using SQL-like query builder which calls `datastore_search_sql` API.
+* Build charts and maps similar to classic Data Explorer but with improved UI/UX.
 
-The React repository is here - https://github.com/datopian/data-explorer
+![ezgif-3-2c8e3c18ac8e](https://user-images.githubusercontent.com/17809581/121645171-b33ddf80-cab5-11eb-8680-b98ddea353b3.gif)
 
 ### Installation
+
+**Important notice:** if you're using CKAN >v2.8.6 or >v2.9.1 you need to make sure that `over` function of Postgresql is enabled via `datastore_search_sql` endpoint. To do so you may need to add it into your allow list here - https://github.com/ckan/ckan/blob/master/ckanext/datastore/allowed_functions.txt
+
+The React code repository is here - https://github.com/datopian/data-explorer.
 
 To install ckanext-dataexplorer-react:
 
