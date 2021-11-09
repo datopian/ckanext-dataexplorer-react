@@ -139,11 +139,15 @@ def in_list(list_possible_values):
 
 
 class DataExplorerViewBase(p.SingletonPlugin):
+    p.implements(p.IConfigurable, inherit=True)
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IResourceView, inherit=True)
     p.implements(p.ITemplateHelpers, inherit=True)
+    
+    #IConfigurable
+    def configure(self, config):
+        toolkit.add_resource('fanstatic', 'dataexplorer')
     # IConfigurer
-
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
