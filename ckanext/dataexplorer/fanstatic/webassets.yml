@@ -1,5 +1,5 @@
 main-css:
-  output: dataexplorer/%(version)dataexplorer.css
+  output: dataexplorer/%(version)s_dataexplorer.css
   contents:
     - css/2.0f69c0e7.chunk.css
     - css/main.0e85ebd4.chunk.css
@@ -7,7 +7,8 @@ main-css:
 
 
 main:
-  output: dataexplorer/%(version)dataexplorer.js
+  output: dataexplorer/%(version)s_dataexplorer.js
+  filters: rjsmin
   extra:
     preload:
       - dataexplorer/main-css
