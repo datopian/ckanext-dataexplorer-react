@@ -147,6 +147,7 @@ class DataExplorerViewBase(p.SingletonPlugin):
     #IConfigurable
     def configure(self, config):
         toolkit.add_resource('fanstatic', 'dataexplorer')
+
     # IConfigurer
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')

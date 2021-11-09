@@ -1,6 +1,5 @@
 main-css:
   output: dataexplorer/%(version)dataexplorer.css
-  filters: cssrewrite
   contents:
     - css/2.0f69c0e7.chunk.css
     - css/main.0e85ebd4.chunk.css
