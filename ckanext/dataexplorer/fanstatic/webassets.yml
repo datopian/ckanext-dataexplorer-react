@@ -4,8 +4,6 @@ main-css:
     - css/2.0f69c0e7.chunk.css
     - css/main.0e85ebd4.chunk.css
     - css/dataexplorer-custom.css
-    - css/main.0e85ebd4.chunk.css.map
-    - css/2.0f69c0e7.chunk.css.map
 
 
 main:
