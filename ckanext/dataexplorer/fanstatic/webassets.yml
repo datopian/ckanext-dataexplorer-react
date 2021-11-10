@@ -8,7 +8,6 @@ main-css:
 
 main:
   output: dataexplorer/%(version)s_dataexplorer.js
-  filters: rjsmin
   extra:
     preload:
       - dataexplorer/main-css
