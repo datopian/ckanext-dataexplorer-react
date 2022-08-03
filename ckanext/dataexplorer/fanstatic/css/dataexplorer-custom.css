@@ -7,13 +7,13 @@
 .data-explorer .total-rows {
     background: #f7f7f7;
     width: 200px;
-    border-left: 4px #206b82 solid;
+    border-left: 4px #2378c3 solid;
     padding: 4px 8px;
     margin-bottom: 20px;
 }
 
 .dq-rule-submit .btn {
-	background-color: #206b82;
+	background-color: #2378c3;
 	border-radius: 4px;
 	color: #fff;
 	display: inline-block;
@@ -22,7 +22,7 @@
 }
 
 .dq-rule-add {
-	background-color: #206b82;
+	background-color: #2378c3;
 	border-radius: 4px;
 	color: #fff;
 	display: inline-block;
@@ -156,12 +156,12 @@
 }
 
 .data-explorer .pagination .active a:hover {
-	background-color: #005d7a;
+	background-color: #2378c3;
 	cursor: pointer
 }
 
 .data-explorer .pagination li {
-	border: 1px solid #005d7a;
+	border: 1px solid #2378c3;
   padding: 6px 12px;
 }
 
@@ -169,7 +169,7 @@
 
  /* char/map builder  */
 form.map-builder, form.chart-builder {
-  background-color: #005d7a;
+  background-color: #2378c3;
 }
 
 [id^="tabpanel"] .container .w-1\/4 .text-xs {
@@ -263,3 +263,6 @@ form.map-builder, form.chart-builder {
 	 background: white;
 }
  
+.tab-table {
+	background-color: #2378c3 !important;
+}
