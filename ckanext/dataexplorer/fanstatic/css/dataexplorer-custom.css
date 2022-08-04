@@ -146,12 +146,12 @@
 
 .data-explorer .pagination li  {
 	border: none;
-	color: #005d7a !important;
+	color: #2378c3 !important;
   padding: 6px 12px;
 }
 
 .data-explorer .pagination .active {
-	background-color: #005d7a;
+	background-color: #2378c3;
 	color: white !important
 }
 
@@ -263,6 +263,10 @@ form.map-builder, form.chart-builder {
 	 background: white;
 }
  
-.tab-table {
+/* .tab-table {
+	background-color: #2378c3 !important;
+} */
+
+.tab-link-active {
 	background-color: #2378c3 !important;
 }

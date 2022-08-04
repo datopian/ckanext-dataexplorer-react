@@ -13,6 +13,6 @@ main:
       - dataexplorer/main-css
   contents:
     - js/2.07ca182b.chunk.js
-    - js/main.166e3012.chunk.js
+    - js/main.7541c7ca.chunk.js
     - js/runtime~main.a8a9905a.js
  
