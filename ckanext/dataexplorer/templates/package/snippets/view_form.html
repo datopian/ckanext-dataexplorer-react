@@ -1,7 +1,26 @@
-{% ckan_extends %}
+{% import 'macros/form.html' as form %}
+
+{% set data = data or {} %}
+{% set errors = errors or {} %}
+
+{{ form.errors(error_summary) }}
+
+{{ form.input('title', id='field-title', label=_('Title'), placeholder=_('eg. My View'), value=data.title, error=errors.title, classes=['control-full', 'control-large'], is_required=true) }}
+{{ form.markdown('description', id='field-description', label=_('Description'), placeholder=_('eg. Information about my view'), value=data.description, error=errors.description) }}
+{{ form.input('offset', id='field-offset', label=_('Row offset'), placeholder=_('eg: 0'), value=data.offset, error=errors.offset, classes=['control-medium']) }}
+
+{{ form.select('limit', id='field-limit', label=_('Number of rows'), options=[{'value': '5', 'text': '5'},{'value': '10', 'text': '10'},{'value': '15', 'text': '15'},{'value': '20', 'text': '20'}], selected="5", error=errors.type, classes=['control-medium']) }}
 
 {% block view_form_filters %}
   {% if  h.resource_view_is_filterable(resource_view) %}
+  {edit view}
    {% snippet 'package/snippets/view_form_filters.html', resource=resource, resource_view=resource_view %}
   {% endif %}
 {% endblock %}
+
+{# form template is defined in ResouceView extention point #}
+
+{% if form_template %}
+  {% include form_template %}
+{% endif %}
+

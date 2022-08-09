@@ -13,7 +13,7 @@ main:
     preload:
       - dataexplorer/main-css
   contents:
-    - js/2.8489727c.chunk.js
-    - js/main.6dcb79ac.chunk.js
+    - js/2.07ca182b.chunk.js
+    - js/main.937f9583.chunk.js
     - js/runtime~main.a8a9905a.js
  
