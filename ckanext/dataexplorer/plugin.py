@@ -174,10 +174,16 @@ class DataExplorerView(DataExplorerViewBase):
     '''
 
     def info(self):
+        schema = {
+            'offset': [ignore_empty, natural_number_validator],
+            'limit': [ignore_empty, natural_number_validator],
+        }
+
         return {'name': 'dataexplorer_view',
                 'title': 'Data Explorer',
                 'icon': 'table',
                 'requires_datastore': True,
+               'schema': schema,
                 'default_title': p.toolkit._('Data Explorer'),
                 }
 
@@ -186,7 +192,8 @@ class DataExplorerView(DataExplorerViewBase):
                      ('tabularmap', 'Map')]
 
         widgets = get_widget(data_dict['resource_view'], view_type)
-
+        limit = data_dict['resource_view'].get('limit', 5)
+        offset = data_dict['resource_view'].get('offset', 0)
         data_dict['resource'].update({
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
@@ -196,16 +203,17 @@ class DataExplorerView(DataExplorerViewBase):
             schema = datastore_fields_to_schema(data_dict['resource'])
             data_dict['resource'].update({
               'schema': {'fields': schema},
-              'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], _external=True),
+              'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],
+                            limit=limit, offset=offset, _external=True),
             })
 
-        datapackage = {'resources': [data_dict['resource']]}
+        datapackage = {'resources': [data_dict['resource']], 'numrows': limit }
 
         # TODO: Add view filter
         return {
             'resource_view': data_dict['resource_view'],
             'widgets': widgets,
-            'datapackage':  datapackage
+            'datapackage':  datapackage,
         }
 
     def can_view(self, data_dict):
@@ -227,12 +235,17 @@ class DataExplorerTableView(DataExplorerViewBase):
     '''
 
     def info(self):
+        schema = {
+            'offset': [ignore_empty, natural_number_validator],
+            'limit': [ignore_empty, natural_number_validator],
+        }
         return {
             'name': 'dataexplorer_table_view',
             'title': 'Table',
             'filterable': False,
             'icon': 'table',
             'requires_datastore': True,
+            'schema': schema,
             'default_title': p.toolkit._('Table'),
         }
 
@@ -243,12 +256,15 @@ class DataExplorerTableView(DataExplorerViewBase):
         widgets = get_widget(data_dict['resource_view'], view_type)
         schema = datastore_fields_to_schema(data_dict['resource'])
         filters = data_dict['resource_view'].get('filters', {})
-
+        limit = data_dict['resource_view'].get('limit', 5)
+        offset = data_dict['resource_view'].get('offset', 0)
+        
         data_dict['resource'].update({
             'schema': {'fields': schema},
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
+            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters),
+                            limit=limit, offset=offset, _external=True),
         })
 
         datapackage = {'resources': [data_dict['resource']]}
