@@ -198,12 +198,20 @@ class DataExplorerView(DataExplorerViewBase):
             'title': data_dict['resource']['name'],
             'path': data_dict['resource']['url'],
         })
+
+        if not data_dict['resource']['datastore_active']:
+            data = {'resource_id': data_dict['resource']['id'], 'limit': 0}
+            fields = toolkit.get_action('datastore_search')({}, data)['fields']
+            if fields:
+                data_dict['resource']['datastore_active'] = "true"
+                data_dict['resource']["datastore_contains_all_records_of_source_file"] = "true"
+
         
         if data_dict['resource'].get('datastore_active'):
             schema = datastore_fields_to_schema(data_dict['resource'])
             data_dict['resource'].update({
-              'schema': {'fields': schema},
-              'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],
+                'schema': {'fields': schema},
+                'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'],
                             limit=limit, offset=offset, _external=True),
             })
 
