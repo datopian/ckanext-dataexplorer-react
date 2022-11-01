@@ -3,13 +3,12 @@
 {% block page %}
    <div class="data-explorer" id="data-explorer-{{resource_view.id}}" 
    data-datapackage="{{ h.dump_json({ "widgets": widgets, "datapackage": datapackage }) }}"> </div>
-    {% if h.ckan_29_or_higher %}
-      {% include 'snippets/assets_2.9.html' %}
-    {% else %}
-      {% include 'snippets/resource_2.8.html' %}
-    {% endif %}
-    
 {% endblock %}
 
-{% block styles %}{% endblock %}
+{% if h.ckan_29_or_higher %}
+  {% include 'snippets/assets_2.9.html' %}
+{% else %}
+  {% include 'snippets/resource_2.8.html' %}
+{% endif %}
+
 {% block custom_styles %}{% endblock %}
