@@ -10,7 +10,6 @@ log = getLogger(__name__)
 ignore_empty = p.toolkit.get_validator('ignore_empty')
 natural_number_validator = p.toolkit.get_validator('natural_number_validator')
 Invalid = p.toolkit.Invalid
-ckan_29_or_higher = p.toolkit.check_ckan_version(min_version='2.9.0')
 
 def each_datastore_field_to_schema_type(dstore_type):
     # Adopted from https://github.com/frictionlessdata/datapackage-pipelines-ckan-driver/blob/master/tableschema_ckan_datastore/mapper.py
@@ -160,9 +159,7 @@ class DataExplorerViewBase(p.SingletonPlugin):
                 '_datastore_only_resource' in resource.get('url', ''))
 
     def get_helpers(self):
-        return {
-            'ckan_29_or_higher' : ckan_29_or_higher
-        }
+        return {}
 
     def view_template(self, context, data_dict):
         return 'dataexplorer.html'
