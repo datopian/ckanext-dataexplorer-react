@@ -1,4 +1,4 @@
-[![CKAN](https://img.shields.io/badge/ckan-2.8-orange.svg?style=flat-square)](https://github.com/ckan/ckan/tree/2.8) [![CKAN](https://img.shields.io/badge/ckan-2.9-orange.svg?style=flat-square)](https://github.com/ckan/ckan/tree/2.9)
+[![CKAN](https://img.shields.io/badge/ckan-2.10-orange.svg?style=flat-square)](https://github.com/ckan/ckan/tree/2.8) [![CKAN](https://img.shields.io/badge/ckan-2.9-orange.svg?style=flat-square)](https://github.com/ckan/ckan/tree/2.9)
 
 Note that it should work on earlier CKAN versions but it hasn't been tested.
 
@@ -15,6 +15,8 @@ A Data Explorer app for CKAN built in React:
 ![ezgif-3-2c8e3c18ac8e](https://user-images.githubusercontent.com/17809581/121645171-b33ddf80-cab5-11eb-8680-b98ddea353b3.gif)
 
 ### Installation
+
+**:warning: For CKAN v2.8, please use branch `2.8`.**
 
 **Important notice:** if you're using CKAN >v2.8.6 or >v2.9.1 you need to make sure that `over` function of Postgresql is enabled via `datastore_search_sql` endpoint. To do so you may need to add it into your allow list here - https://github.com/ckan/ckan/blob/master/ckanext/datastore/allowed_functions.txt
 
