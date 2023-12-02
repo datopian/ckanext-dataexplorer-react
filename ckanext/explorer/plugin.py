@@ -404,7 +404,7 @@ class DataExplorerMapView(DataExplorerViewBase):
         }
 
         return {
-            'name': 'dataexplorer_map_view',
+            'name': 'explorer_map_view',
             'title': 'Map',
             'filterable': False,
             'icon': 'map-marker',
