@@ -219,57 +219,6 @@ class DataExplorerView(DataExplorerViewBase):
             return False
 
 
-class DataExplorerTableView(DataExplorerViewBase):
-    '''
-        This extension provides table views using a v2 dataexplorer.
-    '''
-
-    def info(self):
-        return {
-            'name': 'dataexplorer_table_view',
-            'title': 'Table',
-            'filterable': False,
-            'icon': 'table',
-            'requires_datastore': True,
-            'default_title': p.toolkit._('Table'),
-        }
-
-    def setup_template_variables(self, context, data_dict):
-
-        view_type = view_type = [('table', 'Table')]
-
-        widgets = get_widget(data_dict['resource_view'], view_type)
-        schema = datastore_fields_to_schema(data_dict['resource'])
-        filters = data_dict['resource_view'].get('filters', {})
-
-        data_dict['resource'].update({
-            'schema': {'fields': schema},
-            'title': data_dict['resource']['name'],
-            'path': data_dict['resource']['url'],
-            'api': url_for('api.action', ver=3, logic_function='datastore_search', resource_id=data_dict['resource']['id'], filters=json.dumps(filters), _external=True),
-        })
-
-        datapackage = {'resources': [data_dict['resource']]}
-
-        return {
-            'resource_view': data_dict['resource_view'],
-            'widgets': widgets,
-            'datapackage':  datapackage
-        }
-
-    def can_view(self, data_dict):
-        resource = data_dict['resource']
-
-        if (resource.get('datastore_active') or
-                '_datastore_only_resource' in resource.get('url', '')):
-            return True
-        resource_format = resource.get('format', None)
-        if resource_format:
-            return resource_format.lower() in ['csv', 'xls', 'xlsx', 'tsv']
-        else:
-            return False
-
-
 class DataExplorerChartView(DataExplorerViewBase):
     '''
     This extension provides chart views using a v2 dataexplorer.
